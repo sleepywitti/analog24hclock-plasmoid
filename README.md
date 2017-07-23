@@ -12,7 +12,7 @@ It uses code from
 
 run `plasmapkg2 -i <path/to/plasmoid>/package/`
 
-or move content of the `./package/` directory to `$HOME/.local/share/plasma/plasmoids/org.kde.plasma.analog24hclock`
+or move content of the `./package/` directory to `$HOME/.local/share/plasma/plasmoids/org.twitt.analog24hclock`
 
 
 ## License
