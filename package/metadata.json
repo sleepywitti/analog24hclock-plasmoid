@@ -1,0 +1,22 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "T. Witt"
+            }
+        ],
+        "Category": "Date and Time",
+        "Description": "A analog clock with 24 hours",
+        "Icon": "preferences-system-time",
+        "Id": "org.twitt.analog24hclock",
+        "Name": "Analog 24h Clock",
+        "Version": "2.0",
+        "Website": "https://github.com/sleepywitti/analog24hclock-plasmoid",
+        "License": "GPL-3.0-or-later"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-Provides": [
+        "org.kde.plasma.time"
+    ]
+}

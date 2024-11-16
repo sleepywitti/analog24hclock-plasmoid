@@ -17,70 +17,69 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  2.010-1301, USA.
  */
 
-import QtQuick 2.2
-import QtQuick.Controls 1.3 as QtControls
-import org.kde.plasma.core 2.0 as PlasmaCore
-import QtQuick.Layouts 1.0 as QtLayouts
 
-Item {
-    id: generalConfig
+import QtQuick
+import QtQuick.Controls as QtControls
+import org.kde.kirigami as Kirigami
+import org.kde.kcmutils as KCM
+//import org.kde.plasma.core 2.0 as PlasmaCore
+//import QtQuick.Layouts 1.0 as QtLayouts
+import org.kde.kirigamiaddons.formcard as FormCard
+import org.kde.plasma.components as PlasmaComponents3
 
-    property alias cfg_showSecondHand: showSecondHandCheckBox.checked
-    property alias cfg_showMinuteHand: showMinuteHandCheckBox.checked
+KCM.SimpleKCM {
+    id: config_container
 
-    property alias cfg_latitude: latitude.value
-    property alias cfg_longitude: longitude.value
+    property alias cfg_showSecondHand: showSecondHand.checked
+    property alias cfg_showMinuteHand: showMinuteHand.checked
+    property alias cfg_latitude: latitude.text
+    property alias cfg_longitude: longitude.text
 
-    PlasmaCore.DataSource {
-        id: geolocationDS
-        engine: 'geolocation'
+    property alias cfg_showSecondHandDefault: showSecondHand.checked
+    property alias cfg_showMinuteHandDefault: showMinuteHand.checked
+    property alias cfg_latitudeDefault: latitude.text
+    property alias cfg_longitudeDefault: longitude.text
 
-        property string locationSource: 'location'
+    FormCard.FormCardPage {
+        id: page
 
-        connectedSources: []
-
-        onNewData: {
-            print('geolocation: ' + data.latitude)
-            latitude.value = data.latitude
-            longitude.value = data.longitude
+        FormCard.FormHeader {
+            title: i18n("Display")
         }
-    }
 
-    Column {
-        QtControls.CheckBox {
-            id: showSecondHandCheckBox
-            text: i18n("Show seconds hand")
+        Kirigami.FormLayout {
+            QtControls.CheckBox {
+                id: showSecondHand
+                text: i18n("Show minutes hand")
+            }
+
+            QtControls.CheckBox {
+                id: showMinuteHand
+                text: i18n("Show seconds hand")
+            }
         }
-        QtControls.CheckBox {
-            id: showMinuteHandCheckBox
-            text: i18n("Show minutes hand")
+
+        FormCard.FormHeader {
+            title: i18n("Position")
         }
-		QtLayouts.RowLayout {
-			QtControls.Label {
-				text: i18n("Location (lat, long):")
-			}
-			QtControls.SpinBox {
-				id: latitude
-				decimals: 7
-				stepSize: 1
-				minimumValue: -90
-				maximumValue: 90
-			}
-			QtControls.SpinBox {
-				id: longitude
-				decimals: 7
-				stepSize: 1
-				minimumValue: -180
-				maximumValue: 180
-			}
-			QtControls.Button {
-				text: i18n('Locate')
-				tooltip: i18n('This will use Mozilla Location Service exposed natively in KDE')
-				onClicked: {
-					geolocationDS.connectedSources.length = 0
-					geolocationDS.connectedSources.push(geolocationDS.locationSource)
-				}
-			}
-		}
+
+        Kirigami.FormLayout {
+            PlasmaComponents3.TextField {
+                Kirigami.FormData.label: "Latitude:"
+                id: latitude
+                placeholderText: i18n("Latitude")
+                property int decimals: 7
+                validator: DoubleValidator {bottom: -90; top: 90; decimals: decimals;}
+                property real realValue: 0
+            }
+            PlasmaComponents3.TextField {
+                Kirigami.FormData.label: "Longitude:"
+                id: longitude
+                placeholderText: i18n("Longitude")
+                property int decimals: 7
+                validator: DoubleValidator {bottom: -180; top: 180; decimals: decimals;}
+                property real realValue: 0
+            }
+        }
     }
 }

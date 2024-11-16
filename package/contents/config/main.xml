@@ -13,10 +13,10 @@
       <default>false</default>
     </entry>
     <entry name="latitude" type="Double">
-      <default>00</default>
+      <default>47.4210795</default>
     </entry>
     <entry name="longitude" type="Double">
-      <default>00</default>
+      <default>10.9750655</default>
     </entry>
   </group>
 </kcfg>

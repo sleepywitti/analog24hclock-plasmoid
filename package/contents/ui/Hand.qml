@@ -21,9 +21,10 @@
 
 import QtQuick 2.0
 
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.ksvg as KSvg
+import org.kde.kirigami 2.20 as Kirigami
 
-PlasmaCore.SvgItem {
+KSvg.SvgItem {
     id: secondHand
 
     property alias rotation: rotation.angle
@@ -36,6 +37,7 @@ PlasmaCore.SvgItem {
         topMargin: -width/2
         horizontalCenter: clock.horizontalCenter
     }
+
     svg: clockSvg
     smooth: !anim.running
     transform: Rotation {
@@ -48,7 +50,7 @@ PlasmaCore.SvgItem {
         Behavior on angle {
             RotationAnimation {
                 id: anim
-                duration: 200
+                duration: Kirigami.Units.longDuration
                 direction: RotationAnimation.Clockwise
                 easing.type: Easing.OutElastic
                 easing.overshoot: 0.5
